@@ -97,21 +97,11 @@ public class Aplicacion {
 		return grupo;
 	}
 
-	public Grupo modificarGrupo() throws SQLException, ClassNotFoundException {
-		System.out.print("Introduce el id del grupo: ");
-		int _id = Integer.parseInt(sc.nextLine());
-		System.out.print("Introduce el nombre del grupo: ");
-		String nombre = sc.nextLine();
-		System.out.print("Introduce el curso: ");
-		String curso = sc.nextLine();
-		System.out.print("Introduce el año: ");
-		int anyo = Integer.parseInt(sc.nextLine());
+	public int modificarGrupo(Grupo grupo) throws SQLException, ClassNotFoundException {
 		gruposAbreConexion();
-		this.grupoService.update(_id, nombre, curso, anyo);
-		Grupo grupo = this.grupoService.requestById((int) _id);
+		this.grupoService.update(grupo.getId(), grupo.getNombre(),grupo.getCurso(),grupo.getAnyo());
 		cierraConexion();
-		System.out.println("Grupo modificado: " + grupo);
-		return grupo;
+		return grupo.getId();
 	}
 
 	public String eliminarGrupo(int id) throws SQLException, ClassNotFoundException {

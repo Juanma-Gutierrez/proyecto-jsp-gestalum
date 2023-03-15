@@ -53,27 +53,17 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
 				out.print(app.eliminarGrupo(id));
 				out.print(app.muestraTodosLosGrupos("nombre"));
 				break;
+			case "modificarGrupo":
+				id = Integer.parseInt(request.getParameter("id"));
+				nombre = request.getParameter("nombre");
+				curso = request.getParameter("curso");
+				anyo = Integer.parseInt(request.getParameter("anyo"));
+				grupo = new Grupo(id, nombre, curso, anyo);
+				out.print(app.muestraUnGrupo(app.modificarGrupo(grupo), "modificado"));
+				break;
 			}
 			Footer footer = new Footer(); out.print(footer);
 			%>
-		<!-- 
-
-
-
-
-		  case "modificarGrupo":
-			  id = Integer.parseInt(request.getParameter("id"));
-			  nombre = request.getParameter("nombre");
-			  curso = request.getParameter("curso");
-			  anyo = Integer.parseInt(request.getParameter("anyo"));
-			  grupo = new Grupo(id, nombre, curso, anyo);
-			  out.print(app.muestraUnGrupo(app.modificarGrupo(grupo), "modificado"));
-			  break; -->
-
-
-		<!-- 		Aplicacion app = new Aplicacion(); out.print(app.muestraUnGrupo(id, "consultar"));
- -->
-
 	</body>
 </body>
 
