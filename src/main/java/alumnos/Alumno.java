@@ -10,28 +10,28 @@ public class Alumno {
 	String curso;
 
 	public Alumno() {
-		this(0, "", "");
+		this(0, "", "", 0);
 	}
 
 	public Alumno(int id, String nombre, String apellidos) {
+		this(id, nombre, apellidos, 0);
+	}
+
+	public Alumno(int id, String nombre, String apellidos, int grupoId) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.grupoId = grupoId;
 	}
 
 	public Alumno(String nombre, String apellidos, int grupoId) {
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.grupoId = grupoId;
+		this(0, nombre,apellidos, grupoId);
 	}
 
 	public Alumno(int id, String nombre, String apellidos, String nombreGrupo, String curso, int grupoId) {
-		this.id = id;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
+		this(id, nombre, apellidos, grupoId);
 		this.curso = curso;
 		this.nombreGrupo = nombreGrupo;
-		this.grupoId = grupoId;
 	}
 
 	public long getId() {

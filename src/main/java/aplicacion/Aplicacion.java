@@ -49,9 +49,7 @@ public class Aplicacion {
 	public int modificarAlumno(Alumno alumno) throws SQLException, ClassNotFoundException {
 		alumnosAbreConexion();
 		this.alumnoService.update((int) alumno.getId(), alumno.getNombre(), alumno.getApellidos(), alumno.getGrupoId());
-		Alumno alumnoActualizado = this.alumnoService.requestById((int) alumno.getId());
 		cierraConexion();
-		System.out.println("Alumno modificado: " + alumnoActualizado);
 		return (int) alumno.getId();
 	}
 
@@ -214,9 +212,9 @@ public class Aplicacion {
 
 	public String alerta(String mensaje, String color) {
 		String res = "";
-		res += "<div class='container'>";
+		res += "<div class='container p-0 mt-3 mb-3'>";
 		res += "<div class='alert alert-" + color;
-		res += " m-3 text-center' role='alert'>" + mensaje + "</div>";
+		res += " text-center' role='alert'>" + mensaje + "</div>";
 		res += "</div>";
 		return res;
 	}
@@ -230,13 +228,24 @@ public class Aplicacion {
 		String mensaje = "";
 		switch (modo) {
 			case "consultar":
-				mensaje = "<div class='alert alert-primary mb-3' role='alert'>Consulta de alumno</div>";
+				// mensaje = "<div class='alert alert-primary mb-3' role='alert'>Consulta de
+				// alumno</div>";
+				mensaje = alerta("Consulta de alumno", "primary");
 				break;
 			case "crear":
-				mensaje = "<div class='alert alert-warning mb-3' role='alert'>Alta de nuevo alumno</div>";
+				// mensaje = "<div class='alert alert-warning mb-3' role='alert'>Alta de nuevo
+				// alumno</div>";
+				mensaje = alerta("Alta de nuevo alumno", "warning");
 				break;
 			case "creado":
-				mensaje = "<div class='alert alert-success mb-3' role='alert'>Nuevo alumno creado correctamente</div>";
+				// mensaje = "<div class='alert alert-success mb-3' role='alert'>Nuevo alumno
+				// creado correctamente</div>";
+				mensaje = alerta("Nuevo alumno creado correctamente", "success");
+				break;
+			case "modificado":
+				// mensaje = "<div class='alert alert-success mb-3' role='alert'>Datos del
+				// alumno modificados correctamente</div>";
+				mensaje = alerta("Datos del alumno modificados correctamente", "success");
 				break;
 		}
 		ArrayList<Grupo> grupos = consultarTodosGrupos("nombre");
@@ -270,13 +279,13 @@ public class Aplicacion {
 		res += "        <div class='col-8 row justify-content-center'>";
 		// Botonera consulta
 		// Botonera alta de alumno
-		if (id == 0) {
-			res += creaBotonAlumno("creadoAlumno", "Dar de alta", alumno, "info");
-		}
+		if (id == 0)
+			res += creaBotonAlumno("creadoAlumno", "Dar de alta", alumno, "info", "crear");
+		else
+			res += creaBotonAlumno("modificarAlumno", "Actualizar", alumno, "info", "actualizar"); // actualizar
 		res += "  </form>";
 		if (id != 0) {
-			res += creaBotonAlumno("modificarAlumno", "Actualizar", alumno, "info"); // actualizar
-			res += creaBotonAlumno("eliminarAlumno", "Eliminar", alumno, "danger");
+			res += creaBotonAlumno("eliminarAlumno", "Eliminar", alumno, "danger", "eliminar");
 		}
 		res += "    </div>";
 		res += "        <div class='col-2 text-right'>";
@@ -291,14 +300,16 @@ public class Aplicacion {
 		return res;
 	}
 
-	public String creaBotonAlumno(String modo, String textoBoton, Alumno alumno, String color) {
+	public String creaBotonAlumno(String operacion, String textoBoton, Alumno alumno, String color, String modo) {
 		String res = "";
 		res += "<form action='alumno.jsp?' method='GET'>";
-		res += "<input type='hidden' name='op' value='" + modo + "'>";
+		res += "<input type='hidden' name='op' value='" + operacion + "'>";
 		res += "<input type='hidden' name='id' value='" + alumno.getId() + "'>";
-		res += "<input type='hidden' name='nombre' value='" + alumno.getNombre() + "'>";
-		res += "<input type='hidden' name='apellidos' value='" + alumno.getApellidos() + "'>";
-		res += "<input type='hidden' name='grupoId' value='" + alumno.getGrupoId() + "'>";
+		if (!modo.equals("actualizar")){
+			res += "<input type='hidden' name='nombre' value='" + alumno.getNombre() + "'>";
+			res += "<input type='hidden' name='apellidos' value='" + alumno.getApellidos() + "'>";
+			res += "<input type='hidden' name='grupoId' value='" + alumno.getGrupoId() + "'>";
+		}
 		res += "<button class='btn btn-" + color + " mx-1' type='submit'>" + textoBoton + "</button>";
 		res += "</form>";
 		return res;

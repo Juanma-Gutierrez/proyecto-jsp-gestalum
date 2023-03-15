@@ -58,8 +58,8 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
 		nombre = request.getParameter("nombre");
 		apellidos = request.getParameter("apellidos");
 		grupoId = Integer.parseInt(request.getParameter("grupoId"));
-		alumno = new Alumno(nombre, apellidos, grupoId);
-		out.print(app.muestraUnAlumno(app.modificarAlumno(alumno), "creado"));
+		alumno = new Alumno(id, nombre, apellidos, grupoId);
+		out.print(app.muestraUnAlumno(app.modificarAlumno(alumno), "modificado"));
 		break;
   }
 	Footer footer = new Footer(); out.print(footer);
