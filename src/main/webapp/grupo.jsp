@@ -48,6 +48,11 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
 				id = Integer.parseInt(request.getParameter("id"));
 				out.print(app.muestraUnGrupo(id, "consultar"));
 				break;
+			case "eliminarGrupo":
+				id = Integer.parseInt(request.getParameter("id"));
+				out.print(app.eliminarGrupo(id));
+				out.print(app.muestraTodosLosGrupos("nombre"));
+				break;
 			}
 			Footer footer = new Footer(); out.print(footer);
 			%>
@@ -55,11 +60,7 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
 
 
 
-		  case "eliminarGrupo":
-			  id = Integer.parseInt(request.getParameter("id"));
-			  out.print(app.eliminarGrupo(id));
-			  out.print(app.muestraTodosLosGrupo("nombre"));
-			  break;
+
 		  case "modificarGrupo":
 			  id = Integer.parseInt(request.getParameter("id"));
 			  nombre = request.getParameter("nombre");

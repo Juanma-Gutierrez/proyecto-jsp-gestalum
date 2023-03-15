@@ -114,17 +114,16 @@ public class Aplicacion {
 		return grupo;
 	}
 
-	public int borrarGrupo() throws SQLException, ClassNotFoundException {
-		System.out.println("Introduce el id del grupo:");
-		long id = Integer.parseInt(sc.nextLine());
+	public String eliminarGrupo(int id) throws SQLException, ClassNotFoundException {
 		gruposAbreConexion();
 		Boolean borrado = this.grupoService.delete(id);
 		cierraConexion();
+		String res;
 		if (borrado == true)
-			System.out.println("Grupo eliminado");
+			res = alerta("Grupo eliminado correctamente", "success");
 		else
-			System.out.println("Grupo no encontrado");
-		return (int) id;
+			res = alerta("Grupo no encontrado", "danger");
+		return res;
 	}
 
 	// ***************** CONEXION ********************************************
