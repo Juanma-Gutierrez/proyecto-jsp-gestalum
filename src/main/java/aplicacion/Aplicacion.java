@@ -99,7 +99,7 @@ public class Aplicacion {
 
 	public int modificarGrupo(Grupo grupo) throws SQLException, ClassNotFoundException {
 		gruposAbreConexion();
-		this.grupoService.update(grupo.getId(), grupo.getNombre(),grupo.getCurso(),grupo.getAnyo());
+		this.grupoService.update(grupo.getId(), grupo.getNombre(), grupo.getCurso(), grupo.getAnyo());
 		cierraConexion();
 		return grupo.getId();
 	}
@@ -228,7 +228,7 @@ public class Aplicacion {
 				mensaje = alerta("Nuevo alumno creado correctamente", "success");
 				break;
 			case "modificado":
-				mensaje = alerta("Datos del alumno modificados correctamente", "success");
+				mensaje = alerta("Datos del alumno actualizados correctamente", "success");
 				break;
 		}
 		ArrayList<Grupo> grupos = consultarTodosGrupos("nombre");
@@ -240,14 +240,14 @@ public class Aplicacion {
 		res += "      <label for='nombre' class='col-sm-2 col-form-label'>Nombre</label>";
 		res += "      <div class='col-sm-10'>";
 		res += "        <input class='form-control' name='nombre' type='text' placeholder='Nombre' required value='"
-		+ alumno.getNombre() + "'/>";
+				+ alumno.getNombre() + "'/>";
 		res += "      </div>";
 		res += "    </div>";
 		res += "    <div class='row form-group mb-3'>";
 		res += "        <label for='apellidos' class='col-sm-2 col-form-label'>Apellidos</label>";
 		res += "      <div class='col-sm-10'>";
 		res += "        <input class='form-control' name='apellidos' type='text' placeholder='Apellidos' required value='"
-		+ alumno.getApellidos() + "'>";
+				+ alumno.getApellidos() + "'>";
 		res += "      </div>";
 		res += "    </div>";
 		res += "    <div class='row form-group mb-3'>";
@@ -347,17 +347,17 @@ public class Aplicacion {
 		String mensaje = "";
 		switch (modo) {
 			case "consultar":
-				mensaje = alerta("Consulta de grupo", "primary");
-				break;
+			mensaje = alerta("Consulta de grupo", "primary");
+			break;
 			case "crear":
-				mensaje = alerta("Alta de nuevo grupo", "warning");
-				break;
+			mensaje = alerta("Alta de nuevo grupo", "warning");
+			break;
 			case "creado":
-				mensaje = alerta("Nuevo grupo creado correctamente", "success");
-				break;
+			mensaje = alerta("Nuevo grupo creado correctamente", "success");
+			break;
 			case "modificado":
-				mensaje = alerta("Datos del grupo modificados correctamente", "success");
-				break;
+			mensaje = alerta("Datos del grupo actualizados correctamente", "success");
+			break;
 		}
 		if (id != 0) {
 			grupo = consultarUnGrupo(id);
@@ -385,9 +385,13 @@ public class Aplicacion {
 		res += "      </div>";
 		res += "    </div>";
 		res += "    <div class='row'>";
-		res += "      <div class='col-2'>";
+		res += "      <div class='col-4 bg-info text-white rounded align-self-center p-1 px-3'>";
+		gruposAbreConexion();
+		int numAlumnos = this.grupoService.countAlumnosByGroupId(id);
+		cierraConexion();
+		res += String.format("Número de alumnos: %d", numAlumnos);
 		res += "      </div>";
-		res += "      <div class='row col-8 justify-content-center'>";
+		res += "      <div class='row col-4 justify-content-center'>";
 		// Botonera
 		// Botonera alta de grupo
 		if (id == 0)
@@ -398,7 +402,7 @@ public class Aplicacion {
 			res += creaBotonGrupo("eliminarGrupo", "Eliminar", grupo, "danger", "eliminar");
 		}
 		res += "      </div>";
-		res += "      <div class='col-2 text-right'>";
+		res += "      <div class='col-4 text-right'>";
 		res += "        <a href='grupos.jsp?orden=nombre'>";
 		res += "          <button class='btn btn-info text-right'type='button'>Cerrar</button>";
 		res += "        </a>";
@@ -406,7 +410,7 @@ public class Aplicacion {
 		res += "    </div>";
 		res += "  </form>";
 		res += "</div>";
-
+		res += alumnos.get(0).imprimeCabeceraFilas();
 		res += "<div class='container overflow-auto mb-5'>";
 		for (Alumno alumno : alumnos) {
 			if (alumno.getGrupoId() == id)

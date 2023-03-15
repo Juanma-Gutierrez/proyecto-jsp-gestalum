@@ -25,7 +25,7 @@ public class Alumno {
 	}
 
 	public Alumno(String nombre, String apellidos, int grupoId) {
-		this(0, nombre,apellidos, grupoId);
+		this(0, nombre, apellidos, grupoId);
 	}
 
 	public Alumno(int id, String nombre, String apellidos, String nombreGrupo, String curso, int grupoId) {
@@ -76,6 +76,22 @@ public class Alumno {
 
 	public int getGrupoId() {
 		return grupoId;
+	}
+
+	public String imprimeCabeceraFilas() {
+		String res = "";
+		res += "<div class='container alert alert-secondary'>";
+		res += "  <div class='row border rounded text-dark font-weight-bold align-items-center'>";
+		res += "    <div class='col-1 text-center'>ID</div>";
+		res += "    <div class='col-2'>Nombre</div>";
+		res += "    <div class='col-2'>Apellidos</div>";
+		res += "    <div class='col-1 text-center'>Curso</div>";
+		res += "    <div class='col-4'>Grupo</div>";
+		res += "    <div class='col-2 text-center'>";
+		res += "    </div>";
+		res += "  </div>";
+		res += "</div>";
+		return res;
 	}
 
 	@Override

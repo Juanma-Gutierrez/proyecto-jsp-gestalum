@@ -53,6 +53,19 @@ public class GruposService {
 		return result;
 	}
 
+	public int countAlumnosByGroupId(int id) throws SQLException {
+		Statement statement = null;
+		statement = this.conn.createStatement();
+		// Ejecución de la consulta
+		ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM alumnos WHERE id_grupos = " + id);
+		int numeroDeAlumnos = 0;
+		if (result.next()) {
+			numeroDeAlumnos = result.getInt(1);
+		}
+		statement.close();
+		return numeroDeAlumnos;
+	}
+
 	public Grupo requestById(int id) throws SQLException {
 		Grupo result = null;
 		Statement statement = null;
