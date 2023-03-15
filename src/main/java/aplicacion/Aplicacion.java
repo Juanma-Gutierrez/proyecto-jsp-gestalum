@@ -246,23 +246,32 @@ public class Aplicacion {
 		res += "<div class='container px-5 w-50 my-5'>";
 		res += "  <form action='alumno.jsp' method='GET'>";
 		res += mensaje;
-		res += "    <div class='form-floating mb-3'>";
-		res += "      <input class='form-control' name='nombre' type='text' placeholder='Nombre' required value='"
-				+ alumno.getNombre() + "'/>";
+		res += "    <div class='row form-group mb-3'>";
+		res += "      <label for='nombre' class='col-sm-2 col-form-label'>Nombre</label>";
+		res += "      <div class='col-sm-10'>";
+		res += "        <input class='form-control' name='nombre' type='text' placeholder='Nombre' required value='"
+		+ alumno.getNombre() + "'/>";
+		res += "      </div>";
 		res += "    </div>";
-		res += "    <div class='form-floating mb-3'>";
-		res += "      <input class='form-control' name='apellidos' type='text' placeholder='Apellidos' required value='"
-				+ alumno.getApellidos() + "'>";
+		res += "    <div class='row form-group mb-3'>";
+		res += "        <label for='apellidos' class='col-sm-2 col-form-label'>Apellidos</label>";
+		res += "      <div class='col-sm-10'>";
+		res += "        <input class='form-control' name='apellidos' type='text' placeholder='Apellidos' required value='"
+		+ alumno.getApellidos() + "'>";
+		res += "      </div>";
 		res += "    </div>";
-		res += "    <div class='form-floating mb-3'>";
-		res += "      <select class='form-control' name='grupoId' aria-label='Nombre de la clase' required>";
-		res += "        <option value=''>Seleccione una clase</option>";
+		res += "    <div class='row form-group mb-3'>";
+		res += "      <label for='nombre' class='col-sm-2 col-form-label'>Grupo</label>";
+		res += "      <div class='col-sm-10'>";
+		res += "        <select class='form-control' name='grupoId' aria-label='Nombre de la clase' required>";
+		res += "          <option value=''>Seleccione una clase</option>";
 		for (Grupo grupo : grupos) {
 			String mode = grupo.getId() == alumno.getGrupoId() ? " selected " : "";
 			res += "        <option value='" + grupo.getId() + "' " + mode + ">" + grupo.getCurso() + " "
 					+ grupo.getNombre() + "</option>";
 		}
-		res += "      </select>";
+		res += "        </select>";
+		res += "      </div>";
 		res += "    </div>";
 		res += "    <div class='container px-5'>";
 		res += "      <div class='row'>";
@@ -370,14 +379,17 @@ public class Aplicacion {
 		res += "  <form action='grupo.jsp' method='GET'>";
 		res += "    <div class='row'>";
 		res += "      <div class='col-8 form-floating mb-3'>";
+		res += "        <label for='nombre'>Nombre del grupo</label>";
 		res += "        <input class='form-control'type='text' name='nombre' placeholder='Nombre' required value='"
 				+ grupo.getNombre() + "'/>";
 		res += "      </div>";
 		res += "      <div class='col-2 form-floating mb-3'>";
+		res += "        <label for='curso'>Curso</label>";
 		res += "        <input class='form-control text-center' name ='curso' type='text' placeholder='Curso' required value='"
 				+ grupo.getCurso() + "'>";
 		res += "      </div>";
 		res += "      <div class='col-2 form-floating mb-3'>";
+		res += "        <label for='anyo'>Año</label>";
 		res += "        <input class='form-control text-center' name='anyo' type='text' placeholder='Año' required value='"
 				+ grupo.getAnyo() + "'>";
 		res += "      </div>";
