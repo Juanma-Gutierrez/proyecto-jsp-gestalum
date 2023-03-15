@@ -255,7 +255,6 @@ public class Aplicacion {
 		res += "      <input class='form-control' name='apellidos' type='text' placeholder='Apellidos' required value='"
 				+ alumno.getApellidos() + "'>";
 		res += "    </div>";
-		res += "";
 		res += "    <div class='form-floating mb-3'>";
 		res += "      <select class='form-control' name='grupoId' aria-label='Nombre de la clase' required>";
 		res += "        <option value=''>Seleccione una clase</option>";
@@ -277,11 +276,10 @@ public class Aplicacion {
 			res += creaBotonAlumno("creadoAlumno", "Dar de alta", alumno, "info", "crear");
 		else
 			res += creaBotonAlumno("modificarAlumno", "Actualizar", alumno, "info", "actualizar"); // actualizar
-		res += "  </form>";
 		if (id != 0) {
 			res += creaBotonAlumno("eliminarAlumno", "Eliminar", alumno, "danger", "eliminar");
 		}
-		res += "    </div>";
+		res += "        </div>";
 		res += "        <div class='col-2 text-right'>";
 		res += "          <a href='alumnos.jsp?orden=apellidos'>";
 		res += "            <button class='btn btn-info text-right' type='button'>Cerrar</button>";
@@ -289,7 +287,7 @@ public class Aplicacion {
 		res += "        </div>";
 		res += "      </div>";
 		res += "    </div>";
-		res += "  </div>";
+		res += "  </form>";
 		res += "</div>";
 		return res;
 	}
@@ -388,14 +386,13 @@ public class Aplicacion {
 		res += "    <div class='row'>";
 		res += "      <div class='col-2'>";
 		res += "      </div>";
-		res += "      <div class='col-8 text-center'>";
+		res += "      <div class='row col-8 justify-content-center'>";
 		// Botonera
 		// Botonera alta de grupo
 		if (id == 0)
 			res += creaBotonGrupo("creadoGrupo", "Dar de alta", grupo, "info", "crear");
 		else
 			res += creaBotonGrupo("modificarGrupo", "Actualizar", grupo, "info", "actualizar"); // actualizar
-		res += "  </form>";
 		if (id != 0) {
 			res += creaBotonGrupo("eliminarGrupo", "Eliminar", grupo, "danger", "eliminar");
 		}
@@ -406,6 +403,7 @@ public class Aplicacion {
 		res += "        </a>";
 		res += "      </div>";
 		res += "    </div>";
+		res += "  </form>";
 		res += "</div>";
 
 		res += "<div class='container overflow-auto mb-5'>";

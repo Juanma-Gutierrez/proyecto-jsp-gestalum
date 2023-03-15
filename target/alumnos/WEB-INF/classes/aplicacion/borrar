@@ -1,40 +1,34 @@
-<div class='container px-5 my-5'>
-	<form id='contactForm' data-sb-form-api-token='API_TOKEN'>
+<div class='container px-5 w-50 my-5'>
+	<form action='alumno.jsp' method='GET'>
+		<!-- mensaje; -->
 		<div class='form-floating mb-3'>
-			<input class='form-control' id='nombre' type='text' placeholder='Nombre'
-				data-sb-validations='required' />
-			<label for='nombre'>Nombre</label>
-			<div class='invalid-feedback' data-sb-feedback='nombre:required'>Nombre is required.</div>
+			<input class='form-control' name='nombre' type='text' placeholder='Nombre' required value='"
+			+ alumno.getNombre() + "' />
+		</div>";
+		<div class='form-floating mb-3'>
+			<input class='form-control' name='apellidos' type='text' placeholder='Apellidos' required
+				value='" + alumno.getApellidos() + "'>
 		</div>
 		<div class='form-floating mb-3'>
-			<input class='form-control' id='apellidos' type='text' placeholder='Apellidos'
-				data-sb-validations='required' />
-			<label for='apellidos'>Apellidos</label>
-			<div class='invalid-feedback' data-sb-feedback='apellidos:required'>Apellidos is
-				required.</div>
-		</div>
-		<div class='form-floating mb-3'>
-			<select class='form-select' id='nombreDeLaClase' aria-label='Nombre de la clase'>
-				<option value='1'>1</option>
-				<option value='2'>2</option>
-				<option value='3'>3</option>
-				<option value='4'>4</option>
-				<option value='5'>5</option>
+			<select class='form-control' name='grupoId' aria-label='Nombre de la clase' required>
+				<option value=''>Seleccione una clase</option>
+				<!-- for (Grupo grupo : grupos) {String mode = grupo.getId() == alumno.getGrupoId() ? " selected " : "";res += " <option value='" + grupo.getId() + "' " + mode + ">" + grupo.getCurso() + " " + grupo.getNombre() + "</option>";} -->
 			</select>
-			<label for='nombreDeLaClase'>Nombre de la clase</label>
 		</div>
-		<div class='form-floating mb-3'>
-			<select class='form-select' id='curso' aria-label='Curso'>
-				<option value='1'>1</option>
-				<option value='2'>2</option>
-				<option value='3'>3</option>
-				<option value='4'>4</option>
-				<option value='5'>5</option>
-			</select>
-			<label for='curso'>Curso</label>
-		</div>
-		<div class='d-grid'>
-			<button class='btn btn-primary btn-lg disabled' id='submitButton' type='submit'>Submit</button>
+		<div class='container px-5'>
+			<div class='row'>
+				<div class='col-2'>
+				</div>
+				<div class='col-8 row justify-content-center'>
+					<!-- if (id == 0) res += creaBotonAlumno("creadoAlumno", "Dar de alta", alumno, "info", "crear"); else res += creaBotonAlumno("modificarAlumno", "Actualizar", alumno, "info", "actualizar"); // actualizar -->
+					<!-- if (id != 0) {res += creaBotonAlumno("eliminarAlumno", "Eliminar", alumno, "danger", "eliminar"); } -->
+				</div>
+				<div class='col-2 text-right'>
+					<a href='alumnos.jsp?orden=apellidos'>
+						<button class='btn btn-info text-right' type='button'>Cerrar</button>
+					</a>
+				</div>
+			</div>
 		</div>
 	</form>
 </div>
