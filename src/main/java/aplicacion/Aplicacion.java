@@ -32,6 +32,15 @@ public class Aplicacion {
 	}
 
 	// ***************** ALUMNOS ********************************************
+	public int crearAlumno(Alumno alumnoNuevo) throws SQLException, ClassNotFoundException {
+		alumnosAbreConexion();
+		long id = this.alumnoService.create(alumnoNuevo.getNombre(), alumnoNuevo.getApellidos(),
+				alumnoNuevo.getGrupoId());
+		Alumno alumno = this.alumnoService.requestById((int) id);
+		cierraConexion();
+		return (int) alumno.getId();
+	}
+
 	public Alumno consultarUnAlumno(int id) throws SQLException, ClassNotFoundException {
 		alumnosAbreConexion();
 		Alumno alumno = this.alumnoService.requestById(id);
@@ -66,19 +75,12 @@ public class Aplicacion {
 	}
 
 	// ***************** GRUPOS ********************************************
-	public Grupo crearGrupo() throws SQLException, ClassNotFoundException {
-		System.out.print("Introduce el nombre del grupo: ");
-		String nombre = sc.nextLine();
-		System.out.print("Introduce el curso: ");
-		String curso = sc.nextLine();
-		System.out.print("Introduce el año: ");
-		int anyo = Integer.parseInt(sc.nextLine());
+	public int crearGrupo(Grupo grupoNuevo) throws SQLException, ClassNotFoundException {
 		gruposAbreConexion();
-		long id = this.grupoService.create(nombre, curso, anyo);
+		long id = this.grupoService.create(grupoNuevo.getNombre(), grupoNuevo.getCurso(), grupoNuevo.getAnyo());
 		Grupo grupo = this.grupoService.requestById((int) id);
 		cierraConexion();
-		System.out.println("Nuevo grupo creado: " + grupo);
-		return grupo;
+		return (int) grupo.getId();
 	}
 
 	public ArrayList<Grupo> consultarTodosGrupos(String orden) throws SQLException, ClassNotFoundException {
@@ -228,23 +230,15 @@ public class Aplicacion {
 		String mensaje = "";
 		switch (modo) {
 			case "consultar":
-				// mensaje = "<div class='alert alert-primary mb-3' role='alert'>Consulta de
-				// alumno</div>";
 				mensaje = alerta("Consulta de alumno", "primary");
 				break;
 			case "crear":
-				// mensaje = "<div class='alert alert-warning mb-3' role='alert'>Alta de nuevo
-				// alumno</div>";
 				mensaje = alerta("Alta de nuevo alumno", "warning");
 				break;
 			case "creado":
-				// mensaje = "<div class='alert alert-success mb-3' role='alert'>Nuevo alumno
-				// creado correctamente</div>";
 				mensaje = alerta("Nuevo alumno creado correctamente", "success");
 				break;
 			case "modificado":
-				// mensaje = "<div class='alert alert-success mb-3' role='alert'>Datos del
-				// alumno modificados correctamente</div>";
 				mensaje = alerta("Datos del alumno modificados correctamente", "success");
 				break;
 		}
@@ -290,7 +284,7 @@ public class Aplicacion {
 		res += "    </div>";
 		res += "        <div class='col-2 text-right'>";
 		res += "          <a href='alumnos.jsp?orden=apellidos'>";
-		res += "            <button class='btn btn-info text-right' id='cerrarAlumno' type='button'>Cerrar</button>";
+		res += "            <button class='btn btn-info text-right' type='button'>Cerrar</button>";
 		res += "          </a>";
 		res += "        </div>";
 		res += "      </div>";
@@ -305,7 +299,7 @@ public class Aplicacion {
 		res += "<form action='alumno.jsp?' method='GET'>";
 		res += "<input type='hidden' name='op' value='" + operacion + "'>";
 		res += "<input type='hidden' name='id' value='" + alumno.getId() + "'>";
-		if (!modo.equals("actualizar")){
+		if (!modo.equals("actualizar")) {
 			res += "<input type='hidden' name='nombre' value='" + alumno.getNombre() + "'>";
 			res += "<input type='hidden' name='apellidos' value='" + alumno.getApellidos() + "'>";
 			res += "<input type='hidden' name='grupoId' value='" + alumno.getGrupoId() + "'>";
@@ -315,23 +309,34 @@ public class Aplicacion {
 		return res;
 	}
 
-	public int crearAlumno(Alumno alumnoNuevo) throws SQLException, ClassNotFoundException {
-		alumnosAbreConexion();
-		long id = this.alumnoService.create(alumnoNuevo.getNombre(), alumnoNuevo.getApellidos(),
-				alumnoNuevo.getGrupoId());
-		Alumno alumno = this.alumnoService.requestById((int) id);
-		cierraConexion();
-		return (int) alumno.getId();
+	public String creaBotonGrupo(String operacion, String textoBoton, Grupo grupo, String color, String modo) {
+		String res = "";
+		res += "<form action='grupo.jsp?' method='GET'>";
+		res += "<input type='hidden' name='op' value='" + operacion + "'>";
+		res += "<input type='hidden' name='id' value='" + grupo.getId() + "'>";
+		if (!modo.equals("actualizar")) {
+			res += "<input type='hidden' name='nombre' value='" + grupo.getNombre() + "'>";
+			res += "<input type='hidden' name='curso' value='" + grupo.getCurso() + "'>";
+			res += "<input type='hidden' name='anyo' value='" + grupo.getAnyo() + "'>";
+		}
+		res += "<button class='btn btn-" + color + " mx-1' type='submit'>" + textoBoton + "</button>";
+		res += "</form>";
+		return res;
 	}
 
 	public String muestraTodosLosGrupos(String orden) throws ClassNotFoundException, SQLException {
 		String res = "";
 		res += inicioCabeceraFilas();
-		res += "<div class='col-1 text-center'><a href='grupos.jsp?orden=g.id'><button class='btn btn-link'>ID</button></a></div>";
-		res += "<div class='col-1 text-center'><a href='grupos.jsp?orden=g.curso'><button class='btn btn-link'>Curso</button></a></div>";
-		res += "<div class='col-7'><a href='grupos.jsp?orden=g.nombre'><button class='btn btn-link'>Nombre</button></a></div>";
-		res += "<div class='col-1 text-center'><a href='grupos.jsp?orden=g.anyo'><button class='btn btn-link'>Año</button></a></div>";
-		res += "<div class='col-2 text-center'><a href=''><button class='btn btn-info'>Nuevo grupo</button></a></div>";
+		res += botonCabeceraGrupos(1, "text-center", "g.id", "ID");
+		res += botonCabeceraGrupos(1, "text-center", "g.curso", "Curso");
+		res += botonCabeceraGrupos(7, "", "g.nombre", "Nombre del grupo");
+		res += botonCabeceraGrupos(1, "", "g.anyo", "Año");
+		res += "<div class='col-2 text-center'>";
+		res += "  <form action='grupo.jsp' method='GET'>";
+		res += "    <input type='hidden' name='op' value='crearGrupo'>";
+		res += "    <button class='btn btn-info' type='submit'>Nuevo grupo</button>";
+		res += "  </form>";
+		res += "</div>";
 		res += cierreCabeceraFilas();
 
 		ArrayList<Grupo> grupos = consultarTodosGrupos(orden);
@@ -341,26 +346,42 @@ public class Aplicacion {
 		return res;
 	}
 
-	public String muestraUnGrupo(int id) throws ClassNotFoundException, SQLException {
+	public String muestraUnGrupo(int id, String modo) throws ClassNotFoundException, SQLException {
 		Grupo grupo = new Grupo();
+		String mensaje = "";
+		switch (modo) {
+			case "consultar":
+				mensaje = alerta("Consulta de grupo", "primary");
+				break;
+			case "crear":
+				mensaje = alerta("Alta de nuevo grupo", "warning");
+				break;
+			case "creado":
+				mensaje = alerta("Nuevo grupo creado correctamente", "success");
+				break;
+			case "modificado":
+				mensaje = alerta("Datos del grupo modificados correctamente", "success");
+				break;
+		}
 		if (id != 0) {
 			grupo = consultarUnGrupo(id);
 		}
 		ArrayList<Alumno> alumnos = consultarTodosAlumnos("apellidos");
 		String res = "";
-		res += "<div class='container px-5 my-5'>";
-		res += "  <form id='contactForm' action='grupos.jsp?orden=nombre' method='POST'>";
+		res += "<div class='container px-5 mb-5'>";
+		res += mensaje;
+		res += "  <form action='grupo.jsp' method='GET'>";
 		res += "    <div class='row'>";
 		res += "      <div class='col-8 form-floating mb-3'>";
-		res += "        <input class='form-control' id='nombre' type='text' placeholder='Nombre' required value='"
+		res += "        <input class='form-control'type='text' name='nombre' placeholder='Nombre' required value='"
 				+ grupo.getNombre() + "'/>";
 		res += "      </div>";
 		res += "      <div class='col-2 form-floating mb-3'>";
-		res += "        <input class='form-control text-center' id='curso' type='text' placeholder='Curso' required value='"
+		res += "        <input class='form-control text-center' name ='curso' type='text' placeholder='Curso' required value='"
 				+ grupo.getCurso() + "'>";
 		res += "      </div>";
 		res += "      <div class='col-2 form-floating mb-3'>";
-		res += "        <input class='form-control text-center' id='anyo' type='text' placeholder='Año' required value='"
+		res += "        <input class='form-control text-center' name='anyo' type='text' placeholder='Año' required value='"
 				+ grupo.getAnyo() + "'>";
 		res += "      </div>";
 		res += "    </div>";
@@ -370,15 +391,13 @@ public class Aplicacion {
 		res += "      <div class='col-8 text-center'>";
 		// Botonera
 		// Botonera alta de grupo
-		if (id == 0) {
-			res += "<a href='grupos.jsp?orden=nombre'>";
-			res += "  <button class='btn btn-info' id='crearGrupo' type='submit'>Dar de alta</button>";
-			res += "</a>";
-		} else
-		// Botonera consulta
-		{
-			res += "      <button class='btn btn-info' id='actualizarGrupo' type='submit'>Actualizar</button>";
-			res += "      <button class='btn btn-danger' id='eliminarGrupo' type='submit'>Eliminar</button>";
+		if (id == 0)
+			res += creaBotonGrupo("creadoGrupo", "Dar de alta", grupo, "info", "crear");
+		else
+			res += creaBotonGrupo("modificarGrupo", "Actualizar", grupo, "info", "actualizar"); // actualizar
+		res += "  </form>";
+		if (id != 0) {
+			res += creaBotonGrupo("eliminarGrupo", "Eliminar", grupo, "danger", "eliminar");
 		}
 		res += "      </div>";
 		res += "      <div class='col-2 text-right'>";
@@ -387,7 +406,6 @@ public class Aplicacion {
 		res += "        </a>";
 		res += "      </div>";
 		res += "    </div>";
-		res += "  </form>";
 		res += "</div>";
 
 		res += "<div class='container overflow-auto mb-5'>";

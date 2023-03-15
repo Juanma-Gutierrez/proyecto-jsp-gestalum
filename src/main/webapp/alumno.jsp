@@ -22,8 +22,6 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
 <link rel="stylesheet" href="assets/css/style.css" />
 
 <body>
-	<!-- TODO: hacer request para que capture el id del alumno -->
-	<!-- TODO: llamar a la función que muestre la ficha completa del alumno -->
 	<%
 	Navbar navbar = new Navbar("alumnos"); out.print(navbar);
   String op = request.getParameter("op");
