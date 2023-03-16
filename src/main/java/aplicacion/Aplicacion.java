@@ -347,17 +347,17 @@ public class Aplicacion {
 		String mensaje = "";
 		switch (modo) {
 			case "consultar":
-			mensaje = alerta("Consulta de grupo", "primary");
-			break;
+				mensaje = alerta("Consulta de grupo", "primary");
+				break;
 			case "crear":
-			mensaje = alerta("Alta de nuevo grupo", "warning");
-			break;
+				mensaje = alerta("Alta de nuevo grupo", "warning");
+				break;
 			case "creado":
-			mensaje = alerta("Nuevo grupo creado correctamente", "success");
-			break;
+				mensaje = alerta("Nuevo grupo creado correctamente", "success");
+				break;
 			case "modificado":
-			mensaje = alerta("Datos del grupo actualizados correctamente", "success");
-			break;
+				mensaje = alerta("Datos del grupo actualizados correctamente", "success");
+				break;
 		}
 		if (id != 0) {
 			grupo = consultarUnGrupo(id);
@@ -418,20 +418,45 @@ public class Aplicacion {
 		}
 		res += "</div>";
 		return res;
-
 	}
-	/*
-	 * public void muestraMenuAlumnos() {
-	 * }
-	 * 
-	 * public void muestraMenuConsultaAlumnos() {
-	 * }
-	 * 
-	 * public void muestraMenuGrupos() {
-	 * }
-	 * 
-	 * public void muestraMenuConsultaGrupos() {
-	 * }
-	 */
 
+	/************************* MATRICULAS **************************/
+	public String muestraMatriculas(int grupoId) throws ClassNotFoundException, SQLException {
+		ArrayList<Alumno> alumnos = consultarTodosAlumnos("a.apellidos");
+		ArrayList<Grupo> grupos = consultarTodosGrupos("g.nombre");
+		String res = "";
+		res += "<div class='container'>";
+		res += alerta("Matrículas", "primary");
+		res += "</div>";
+		res += "<div class='container'>";
+		res += "  <form action='grupo.jsp' method='GET'>";
+		res += "    <div class='row'>";
+		res += "      <div class='col bg-primary text-white rounded m-1 p-2'>";
+		res += "Columna grupos";
+		res += "        <select class='form-control' name='grupoId' aria-label='Nombre de la clase' required>";
+		res += "          <option value=''>Seleccione una clase</option>";
+		for (Grupo grupo : grupos) {
+		res +="             <option value='" + grupo.getId() + "'>" + grupo.getCurso() + " "
+					+ grupo.getNombre() + "</option>";
+		}
+		res += "        </select>";
+		res += "      </div>";
+		res += "      <div class='col-2 bg-info text-white  rounded m-1 p-2'>";
+		res += "bot";
+		res += "      </div>";
+		res += "      <div class='col bg-primary text-white  rounded m-1 p-2'>";
+		res += "Columna alumnos";
+		for (Alumno alumno :alumnos) {
+		res += "        <div class='form-check'>";
+		res +="           <input class='form-check-input' type='checkbox' value='" + alumno.getId() + "' id='flexCheckDefault'>";
+		res +="           <label class='form-check-label'>" + alumno.getApellidos() + ", "
+					+ alumno.getNombre() + "</label>";
+		res += "        </div>";
+		}
+		res += "      </div>";
+		res += "    </div>";
+		res += "  </form>";
+		res += "</div>";
+		return res;
+	}
 }
