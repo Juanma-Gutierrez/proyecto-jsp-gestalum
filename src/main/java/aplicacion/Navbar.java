@@ -37,7 +37,7 @@ public class Navbar {
 		res += "        <a class='nav-link' href='grupos.jsp?orden=g.nombre'>Grupos</a>";
 		res += "      </li>";
 		res += activaMatriculas;
-		res += "        <a class='nav-link' href='matriculas.jsp?orden=a.apellidos'>Matrículas</a>";
+		res += "        <a class='nav-link' href='matriculas.jsp'>Matrículas</a>";
 		res += "      </li>";
 		res += "    </ul>";
 		res += "  </div>";

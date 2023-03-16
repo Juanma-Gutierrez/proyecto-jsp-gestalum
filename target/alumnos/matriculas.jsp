@@ -38,9 +38,14 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
   <body>
     <body>
       <%
-	  String orden = request.getParameter("orden");
-	  Navbar navbar=new Navbar("grupos"); out.print(navbar);
-	  Aplicacion app=new Aplicacion(); out.print(app.muestraTodosLosGrupos(orden));
+      int grupoId;
+      String _grupoId = request.getParameter("grupoId");
+      if (_grupoId != null)
+	      grupoId = Integer.parseInt(_grupoId);
+      else
+      grupoId = 1;
+	  Navbar navbar=new Navbar("matriculas"); out.print(navbar);
+    Aplicacion app=new Aplicacion(); out.print(app.muestraMatriculas(grupoId));
 	  Footer footer=new Footer(); out.print(footer);
 	  %>
     </body>
