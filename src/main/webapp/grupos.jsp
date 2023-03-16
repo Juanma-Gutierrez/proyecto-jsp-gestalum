@@ -33,6 +33,8 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
     crossorigin="anonymous"
   ></script>
   <link rel="stylesheet" href="assets/css/style.css" />
+  <title>Gestalum</title>
+  <link rel="shortcut icon" href="assets/img/letra-g.png" type="image/x-icon">
   <body>
     <body>
       <%

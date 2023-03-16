@@ -20,7 +20,8 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
 </script>
 <script src="https://kit.fontawesome.com/ad22caf6eb.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="assets/css/style.css" />
-
+<title>Gestalum</title>
+<link rel="shortcut icon" href="assets/img/letra-g.png" type="image/x-icon">
 <body>
 	<%
 	Navbar navbar = new Navbar("alumnos"); out.print(navbar);

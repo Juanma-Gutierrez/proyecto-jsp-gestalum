@@ -6,12 +6,16 @@ public class Navbar {
 	public Navbar(String opcion) {
 		String activoAlumnos = "<li class='nav-item'>";
 		String activoGrupos = "<li class='nav-item'>";
+		String activaMatriculas = "<li class='nav-item'>";
 		switch (opcion) {
 			case "alumnos":
 				activoAlumnos = "<li class='nav-item active'>";
 				break;
 			case "grupos":
 				activoGrupos = "<li class='nav-item active'>";
+				break;
+			case "matriculas":
+				activaMatriculas = "<li class='nav-item active'>";
 				break;
 		}
 		String res = "";
@@ -31,6 +35,9 @@ public class Navbar {
 		res += "      </li>";
 		res += activoGrupos;
 		res += "        <a class='nav-link' href='grupos.jsp?orden=g.nombre'>Grupos</a>";
+		res += "      </li>";
+		res += activaMatriculas;
+		res += "        <a class='nav-link' href='matriculas.jsp?orden=a.apellidos'>Matrículas</a>";
 		res += "      </li>";
 		res += "    </ul>";
 		res += "  </div>";
