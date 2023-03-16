@@ -66,6 +66,19 @@ public class GruposService {
 		return numeroDeAlumnos;
 	}
 
+	public int findFirstGroupId(int id) throws SQLException {
+		Statement statement = null;
+		statement = this.conn.createStatement();
+		// Ejecución de la consulta
+		ResultSet result = statement.executeQuery("SELECT MIN(id) FROM grupos");
+		int grupoId = 0;
+		if (result.next()) {
+			grupoId = result.getInt(1);
+		}
+		statement.close();
+		return grupoId;
+	}
+
 	public Grupo requestById(int id) throws SQLException {
 		Grupo result = null;
 		Statement statement = null;

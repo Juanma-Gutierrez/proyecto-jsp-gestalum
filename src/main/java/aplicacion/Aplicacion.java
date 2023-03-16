@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import alumnos.*;
 import grupos.*;
@@ -438,14 +439,11 @@ public class Aplicacion {
 		ArrayList<Alumno> alumnosSinGrupo = consultarAlumnosSinGrupo("a.apellidos");
 		ArrayList<Grupo> grupos = consultarTodosGrupos("g.nombre");
 		String res = "";
-		res += "<div class='container'>";
-		res += alerta("Matrículas", "primary");
-		res += "</div>";
-		res += "<div class='container mb-5'>";
+		res += "<div class='container mb-5 mt-3'>";
 		res += "  <form action='matriculas.jsp' method='GET'>";
 		res += "    <div class='row'>";
-		res += "      <div class='col bg-primary text-white rounded m-1 p-2'>";
-		res += "         <label for='grupoId'>Selección del grupo</label>";
+		res += "      <div class='col bg-secondary text-white rounded m-1 p-2'>";
+		res += "         <label class='mx-3' for='grupoId'>Selección del grupo</label>";
 		res += "        <select class='form-control' name='grupoId' aria-label='Nombre de la clase' required>";
 		res += "          <option value=''>Seleccione una clase</option>";
 		for (Grupo grupo : grupos) {
@@ -455,12 +453,13 @@ public class Aplicacion {
 					+ grupo.getNombre() + "</option>";
 		}
 		res += "        </select>";
-		res += "         <button type='submit' class='btn btn-primary m-3'>Mostrar grupo</button>";
+		res += "         <button type='submit' class='btn btn-info m-3'>Mostrar grupo</button>";
 		res += "         Número de alumnos: " + contadorAlumnos(grupoId);
 		for (Alumno alumno : alumnos) {
 			if (alumno.getGrupoId() == grupoId) {
 				res += "        <div class='form-check ml-3'>";
-				res += "           <input class='form-check-input pl-2' type='checkbox' value='" + alumno.getId()
+				res += "           <input class='form-check-input pl-2' type='checkbox' name = 'id' value='"
+						+ alumno.getId()
 						+ "' id='flexCheckDefault'>";
 				res += "           <label class='form-check-label'>" + alumno.getApellidos() + ", "
 						+ alumno.getNombre() + "</label>";
@@ -468,15 +467,15 @@ public class Aplicacion {
 			}
 		}
 		res += "      </div>";
-		res += "      <div class='col-2 bg-info text-white rounded m-1 p-2 d-flex flex-column justify-content-center'>";
-		res += "        <button class='btn btn-info btn-block' type='submit'><i class='fa fa-arrow-left' aria-hidden='true'></i> Matricular</button>";
-		res += "        <button class='btn btn-info btn-block' type='submit'>Desmatricular <i class='fa fa-arrow-right' aria-hidden='true'></i></button>";
+		res += "      <div class='col-2 bg-info text-white rounded m-1 p-2 '>";
+		res += "        <button class='btn btn-info btn-block mt-5 ' name='matricular' type='submit'><i class='fa fa-arrow-left' aria-hidden='true'></i> Matricular</button>";
+		res += "        <button class='btn btn-info btn-block' name='desmatricular' type='submit'>Desmatricular <i class='fa fa-arrow-right' aria-hidden='true'></i></button>";
 		res += "      </div>";
-		res += "      <div class='col bg-primary text-white  rounded m-1 p-2'>";
-		res += "         <label for=''>Alumnos sin grupo asignado</label>";
+		res += "      <div class='col bg-secondary text-white  rounded m-1 p-2'>";
+		res += "         <label class='mx-3' for=''>Alumnos sin grupo asignado</label>";
 		for (Alumno alumno : alumnosSinGrupo) {
 			res += "        <div class='form-check ml-3'>";
-			res += "           <input class='form-check-input' type='checkbox' value='" + alumno.getId()
+			res += "           <input class='form-check-input' type='checkbox' name = 'id' value='" + alumno.getId()
 					+ "' id='flexCheckDefault'>";
 			res += "           <label class='form-check-label'>" + alumno.getApellidos() + ", "
 					+ alumno.getNombre() + "</label>";
@@ -487,5 +486,47 @@ public class Aplicacion {
 		res += "  </form>";
 		res += "</div>";
 		return res;
+	}
+
+	/*
+	 * public int modificarAlumno(Alumno alumno) throws SQLException,
+	 * ClassNotFoundException {
+	 * alumnosAbreConexion();
+	 * this.alumnoService.update((int) alumno.getId(), alumno.getNombre(),
+	 * alumno.getApellidos(), alumno.getGrupoId());
+	 * cierraConexion();
+	 * return (int) alumno.getId();
+	 * }
+	 */
+
+	public void matricular(String[] ids, int grupoId) throws ClassNotFoundException, SQLException {
+		ArrayList<Alumno> alumnos = consultarTodosAlumnos("a.apellidos");
+		for (Alumno alumno : alumnos) {
+			for (int i = 0; i < ids.length; i++) {
+				if ((int) alumno.getId() == Integer.parseInt(ids[i])) {
+					alumno.setGrupoId(grupoId);
+					modificarAlumno(alumno);
+				}
+			}
+		}
+	}
+
+	public void desmatricular(String[] ids) throws ClassNotFoundException, SQLException {
+		ArrayList<Alumno> alumnos = consultarTodosAlumnos("a.apellidos");
+		for (Alumno alumno : alumnos) {
+			for (int i = 0; i < ids.length; i++) {
+				if ((int) alumno.getId() == Integer.parseInt(ids[i])) {
+					alumno.setGrupoId(0);
+					modificarAlumno(alumno);
+				}
+			}
+		}
+	}
+
+	public int primerGrupoId() throws SQLException, ClassNotFoundException {
+		gruposAbreConexion();
+		int primerId = this.grupoService.findFirstGroupId(0);
+		cierraConexion();
+		return primerId;
 	}
 }

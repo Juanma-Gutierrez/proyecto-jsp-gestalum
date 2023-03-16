@@ -78,6 +78,10 @@ public class Alumno {
 		return grupoId;
 	}
 
+	public void setGrupoId(int grupoId) {
+		this.grupoId = grupoId;
+	}
+
 	public String imprimeCabeceraFilas() {
 		String res = "";
 		res += "<div class='container alert alert-secondary'>";
