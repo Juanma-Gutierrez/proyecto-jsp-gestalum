@@ -55,6 +55,13 @@ public class Aplicacion {
 		return alumnos;
 	}
 
+	public ArrayList<Alumno> consultarAlumnosSinGrupo(String orden) throws SQLException, ClassNotFoundException {
+		alumnosAbreConexion();
+		ArrayList<Alumno> alumnos = this.alumnoService.requestWithoutGroup(orden);
+		cierraConexion();
+		return alumnos;
+	}
+
 	public int modificarAlumno(Alumno alumno) throws SQLException, ClassNotFoundException {
 		alumnosAbreConexion();
 		this.alumnoService.update((int) alumno.getId(), alumno.getNombre(), alumno.getApellidos(), alumno.getGrupoId());
@@ -386,9 +393,7 @@ public class Aplicacion {
 		res += "    </div>";
 		res += "    <div class='row'>";
 		res += "      <div class='col-4 bg-info text-white rounded align-self-center p-1 px-3'>";
-		gruposAbreConexion();
-		int numAlumnos = this.grupoService.countAlumnosByGroupId(id);
-		cierraConexion();
+		int numAlumnos = contadorAlumnos(id);
 		res += String.format("Número de alumnos: %d", numAlumnos);
 		res += "      </div>";
 		res += "      <div class='row col-4 justify-content-center'>";
@@ -420,38 +425,62 @@ public class Aplicacion {
 		return res;
 	}
 
+	public int contadorAlumnos(int id) throws ClassNotFoundException, SQLException {
+		gruposAbreConexion();
+		int numAlumnos = this.grupoService.countAlumnosByGroupId(id);
+		cierraConexion();
+		return numAlumnos;
+	}
+
 	/************************* MATRICULAS **************************/
 	public String muestraMatriculas(int grupoId) throws ClassNotFoundException, SQLException {
 		ArrayList<Alumno> alumnos = consultarTodosAlumnos("a.apellidos");
+		ArrayList<Alumno> alumnosSinGrupo = consultarAlumnosSinGrupo("a.apellidos");
 		ArrayList<Grupo> grupos = consultarTodosGrupos("g.nombre");
 		String res = "";
 		res += "<div class='container'>";
 		res += alerta("Matrículas", "primary");
 		res += "</div>";
-		res += "<div class='container'>";
-		res += "  <form action='grupo.jsp' method='GET'>";
+		res += "<div class='container mb-5'>";
+		res += "  <form action='matriculas.jsp' method='GET'>";
 		res += "    <div class='row'>";
 		res += "      <div class='col bg-primary text-white rounded m-1 p-2'>";
-		res += "Columna grupos";
+		res += "         <label for='grupoId'>Selección del grupo</label>";
 		res += "        <select class='form-control' name='grupoId' aria-label='Nombre de la clase' required>";
 		res += "          <option value=''>Seleccione una clase</option>";
 		for (Grupo grupo : grupos) {
-		res +="             <option value='" + grupo.getId() + "'>" + grupo.getCurso() + " "
+			String seleccionado;
+			seleccionado = grupo.getId() == grupoId ? " selected " : "";
+			res += "             <option value='" + grupo.getId() + "' " + seleccionado + ">" + grupo.getCurso() + " "
 					+ grupo.getNombre() + "</option>";
 		}
 		res += "        </select>";
+		res += "         <button type='submit' class='btn btn-primary m-3'>Mostrar grupo</button>";
+		res += "         Número de alumnos: " + contadorAlumnos(grupoId);
+		for (Alumno alumno : alumnos) {
+			if (alumno.getGrupoId() == grupoId) {
+				res += "        <div class='form-check ml-3'>";
+				res += "           <input class='form-check-input pl-2' type='checkbox' value='" + alumno.getId()
+						+ "' id='flexCheckDefault'>";
+				res += "           <label class='form-check-label'>" + alumno.getApellidos() + ", "
+						+ alumno.getNombre() + "</label>";
+				res += "        </div>";
+			}
+		}
 		res += "      </div>";
-		res += "      <div class='col-2 bg-info text-white  rounded m-1 p-2'>";
-		res += "bot";
+		res += "      <div class='col-2 bg-info text-white rounded m-1 p-2 d-flex flex-column justify-content-center'>";
+		res += "        <button class='btn btn-info btn-block' type='submit'><i class='fa fa-arrow-left' aria-hidden='true'></i> Matricular</button>";
+		res += "        <button class='btn btn-info btn-block' type='submit'>Desmatricular <i class='fa fa-arrow-right' aria-hidden='true'></i></button>";
 		res += "      </div>";
 		res += "      <div class='col bg-primary text-white  rounded m-1 p-2'>";
-		res += "Columna alumnos";
-		for (Alumno alumno :alumnos) {
-		res += "        <div class='form-check'>";
-		res +="           <input class='form-check-input' type='checkbox' value='" + alumno.getId() + "' id='flexCheckDefault'>";
-		res +="           <label class='form-check-label'>" + alumno.getApellidos() + ", "
+		res += "         <label for=''>Alumnos sin grupo asignado</label>";
+		for (Alumno alumno : alumnosSinGrupo) {
+			res += "        <div class='form-check ml-3'>";
+			res += "           <input class='form-check-input' type='checkbox' value='" + alumno.getId()
+					+ "' id='flexCheckDefault'>";
+			res += "           <label class='form-check-label'>" + alumno.getApellidos() + ", "
 					+ alumno.getNombre() + "</label>";
-		res += "        </div>";
+			res += "        </div>";
 		}
 		res += "      </div>";
 		res += "    </div>";

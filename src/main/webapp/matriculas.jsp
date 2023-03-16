@@ -43,9 +43,9 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
       if (_grupoId != null)
 	      grupoId = Integer.parseInt(_grupoId);
       else
-      grupoId = 1;
+          grupoId = 1;
 	  Navbar navbar=new Navbar("matriculas"); out.print(navbar);
-    Aplicacion app=new Aplicacion(); out.print(app.muestraMatriculas(grupoId));
+      Aplicacion app=new Aplicacion(); out.print(app.muestraMatriculas(grupoId));
 	  Footer footer=new Footer(); out.print(footer);
 	  %>
     </body>

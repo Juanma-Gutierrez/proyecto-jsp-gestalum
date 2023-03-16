@@ -35,6 +35,28 @@ public class AlumnosService {
 		return result;
 	}
 
+	public ArrayList<Alumno> requestWithoutGroup(String order) throws SQLException {
+		ArrayList<Alumno> result = new ArrayList<Alumno>();
+		Statement statement = null;
+		statement = this.conn.createStatement();
+		String sql = "SELECT a.id, a.nombre, a.apellidos, IFNULL(g.curso,'-') AS 'g.curso', IFNULL(g.nombre, 'Sin asignar curso') AS 'g.nombre', g.id FROM alumnos a LEFT JOIN grupos g ON g.id = a.id_grupos  WHERE a.id_grupos IS NULL ORDER BY "
+				+ order + ";";
+		// Ejecución de la consulta
+		ResultSet querySet = statement.executeQuery(sql);
+		// Recorrido del resultado de la consulta
+		while (querySet.next()) {
+			int id = querySet.getInt("a.id");
+			String nombre = querySet.getString("a.nombre");
+			String apellidos = querySet.getString("a.apellidos");
+			String nombreGrupo = querySet.getString("g.nombre");
+			String curso = querySet.getString("g.curso");
+			int grupoId = querySet.getInt("g.id");
+			result.add(new Alumno(id, nombre, apellidos, nombreGrupo, curso, grupoId));
+		}
+		statement.close();
+		return result;
+	}
+
 	public Alumno requestById(int id) throws SQLException {
 		Alumno result = null;
 		Statement statement = null;
