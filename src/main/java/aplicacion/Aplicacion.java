@@ -279,7 +279,7 @@ public class Aplicacion {
 		// Botonera consulta
 		// Botonera alta de alumno
 		if (id == 0)
-			res += creaBotonAlumno("creadoAlumno", "Dar de alta", alumno, "info", "crear");
+			res += creaBotonAlumno("creadoAlumno", "<i class='fa fa-user-plus' aria-hidden='true'></i> Dar de alta", alumno, "info", "crear");
 		else
 			res += creaBotonAlumno("modificarAlumno", "<i class='fa fa-pencil' aria-hidden='true'></i> Actualizar", alumno, "info", "actualizar"); // actualizar
 		if (id != 0) {
@@ -402,7 +402,7 @@ public class Aplicacion {
 		// Botonera
 		// Botonera alta de grupo
 		if (id == 0)
-			res += creaBotonGrupo("creadoGrupo", "Dar de alta", grupo, "info", "crear");
+			res += creaBotonGrupo("creadoGrupo", "<i class='fa fa-user-plus' aria-hidden='true'></i> Dar de alta", grupo, "info", "crear");
 		else
 			res += creaBotonGrupo("modificarGrupo", "<i class='fa fa-pencil' aria-hidden='true'></i> Actualizar", grupo, "info", "actualizar"); // actualizar
 		if (id != 0) {
