@@ -176,7 +176,7 @@ public class Aplicacion {
 		res += botonCabeceraAlumnos(1, "text-center", "g.curso", "Curso");
 		res += botonCabeceraAlumnos(4, "", "g.nombre", "Nombre del grupo");
 		res += "<div class='col-2 text-center'>";
-		res += "  <form action='alumno.jsp' method='GET'>";
+		res += "  <form action='alumno.jsp' method='POST'>";
 		res += "    <input type='hidden' name='op' value='crearAlumno'>";
 		res += "    <button class='btn btn-info' type='submit'><i class='fa fa-plus' aria-hidden='true'></i> Nuevo alumno</button>";
 		res += "  </form>";
@@ -242,7 +242,7 @@ public class Aplicacion {
 		ArrayList<Grupo> grupos = consultarTodosGrupos("nombre");
 		String res = "";
 		res += "<div class='container px-5 w-50 my-5'>";
-		res += "  <form action='alumno.jsp' method='GET'>";
+		res += "  <form action='alumno.jsp' method='POST'>";
 		res += mensaje;
 		res += "    <div class='row form-group mb-3'>";
 		res += "      <label for='nombre' class='col-sm-2 col-form-label'>Nombre</label>";
@@ -279,11 +279,14 @@ public class Aplicacion {
 		// Botonera consulta
 		// Botonera alta de alumno
 		if (id == 0)
-			res += creaBotonAlumno("creadoAlumno", "<i class='fa fa-user-plus' aria-hidden='true'></i> Dar de alta", alumno, "info", "crear");
+			res += creaBotonAlumno("creadoAlumno", "<i class='fa fa-user-plus' aria-hidden='true'></i> Dar de alta",
+					alumno, "info", "crear");
 		else
-			res += creaBotonAlumno("modificarAlumno", "<i class='fa fa-pencil' aria-hidden='true'></i> Actualizar", alumno, "info", "actualizar"); // actualizar
+			res += creaBotonAlumno("modificarAlumno", "<i class='fa fa-pencil' aria-hidden='true'></i> Actualizar",
+					alumno, "info", "actualizar"); // actualizar
 		if (id != 0) {
-			res += creaBotonAlumno("eliminarAlumno", "<i class='fa fa-trash' aria-hidden='true'></i> Eliminar", alumno, "danger", "eliminar");
+			res += creaBotonAlumno("eliminarAlumno", "<i class='fa fa-trash' aria-hidden='true'></i> Eliminar", alumno,
+					"danger", "eliminar");
 		}
 		res += "        </div>";
 		res += "        <div class='col-3 text-right'>";
@@ -300,7 +303,7 @@ public class Aplicacion {
 
 	public String creaBotonAlumno(String operacion, String textoBoton, Alumno alumno, String color, String modo) {
 		String res = "";
-		res += "<form action='alumno.jsp?' method='GET'>";
+		res += "<form action='alumno.jsp?' method='POST'>";
 		res += "<input type='hidden' name='op' value='" + operacion + "'>";
 		res += "<input type='hidden' name='id' value='" + alumno.getId() + "'>";
 		if (!modo.equals("actualizar")) {
@@ -315,7 +318,7 @@ public class Aplicacion {
 
 	public String creaBotonGrupo(String operacion, String textoBoton, Grupo grupo, String color, String modo) {
 		String res = "";
-		res += "<form action='grupo.jsp?' method='GET'>";
+		res += "<form action='grupo.jsp?' method='POST'>";
 		res += "<input type='hidden' name='op' value='" + operacion + "'>";
 		res += "<input type='hidden' name='id' value='" + grupo.getId() + "'>";
 		if (!modo.equals("actualizar")) {
@@ -337,7 +340,7 @@ public class Aplicacion {
 		res += botonCabeceraGrupos(2, "text-center", "g.nombre", "Nº Alumnos");
 		res += botonCabeceraGrupos(1, "", "g.anyo", "Año");
 		res += "<div class='col-2 text-center'>";
-		res += "  <form action='grupo.jsp' method='GET'>";
+		res += "  <form action='grupo.jsp' method='POST'>";
 		res += "    <input type='hidden' name='op' value='crearGrupo'>";
 		res += "    <button class='btn btn-info' type='submit'><i class='fa fa-plus' aria-hidden='true'></i> Nuevo grupo</button>";
 		res += "  </form>";
@@ -375,7 +378,7 @@ public class Aplicacion {
 		String res = "";
 		res += "<div class='container px-5 mb-5'>";
 		res += mensaje;
-		res += "  <form action='grupo.jsp' method='GET'>";
+		res += "  <form action='grupo.jsp' method='POST'>";
 		res += "    <div class='row'>";
 		res += "      <div class='col-8 form-floating mb-3'>";
 		res += "        <label for='nombre'>Nombre del grupo</label>";
@@ -402,11 +405,14 @@ public class Aplicacion {
 		// Botonera
 		// Botonera alta de grupo
 		if (id == 0)
-			res += creaBotonGrupo("creadoGrupo", "<i class='fa fa-user-plus' aria-hidden='true'></i> Dar de alta", grupo, "info", "crear");
+			res += creaBotonGrupo("creadoGrupo", "<i class='fa fa-user-plus' aria-hidden='true'></i> Dar de alta",
+					grupo, "info", "crear");
 		else
-			res += creaBotonGrupo("modificarGrupo", "<i class='fa fa-pencil' aria-hidden='true'></i> Actualizar", grupo, "info", "actualizar"); // actualizar
+			res += creaBotonGrupo("modificarGrupo", "<i class='fa fa-pencil' aria-hidden='true'></i> Actualizar", grupo,
+					"info", "actualizar"); // actualizar
 		if (id != 0) {
-			res += creaBotonGrupo("eliminarGrupo", "<i class='fa fa-trash' aria-hidden='true'></i> Eliminar", grupo, "danger", "eliminar");
+			res += creaBotonGrupo("eliminarGrupo", "<i class='fa fa-trash' aria-hidden='true'></i> Eliminar", grupo,
+					"danger", "eliminar");
 		}
 		res += "      </div>";
 		res += "      <div class='col-4 text-right'>";
@@ -441,7 +447,7 @@ public class Aplicacion {
 		ArrayList<Grupo> grupos = consultarTodosGrupos("g.nombre");
 		String res = "";
 		res += "<div class='container mb-5 mt-3'>";
-		res += "  <form action='matriculas.jsp' method='GET'>";
+		res += "  <form action='matriculas.jsp' method='POST'>";
 		res += "    <div class='row'>";
 		res += "      <div class='col bg-secondary text-white rounded m-1 p-2'>";
 		res += "         <label class='bg-primary rounded px-5 py-2 text-center w-100' for='grupoId'>Selección del grupo</label>";

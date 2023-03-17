@@ -109,7 +109,7 @@ public class Alumno {
 		res += "    <div class='col-1 text-center'>" + this.curso + "</div>";
 		res += "    <div class='col-4'>" + this.nombreGrupo + "</div>";
 		res += "    <div class='col-2 text-center'>";
-		res += "      <form action='alumno.jsp' method='GET'>";
+		res += "      <form action='alumno.jsp' method='POST'>";
 		res += "        <input type='hidden' name='op' value='consultarAlumno'>";
 		res += "        <input type='hidden' name='id' value='" + this.getId() + "'>";
 		res += "        <button class='btn btn-info btn-sm m-1' type='submit'>";

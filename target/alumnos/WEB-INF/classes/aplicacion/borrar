@@ -1,5 +1,5 @@
 <div class='container px-5 w-50 my-5'>
-	<form action='alumno.jsp' method='GET'>
+	<form action='alumno.jsp' method='POST'>
 		<!-- mensaje; -->
 		<div class='form-floating mb-3'>
 			<input class='form-control' name='nombre' type='text' placeholder='Nombre' required value='"
