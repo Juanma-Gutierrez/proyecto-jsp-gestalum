@@ -158,7 +158,7 @@ public class Aplicacion {
 	public String inicioCabeceraFilas() {
 		String res = "";
 		res += "<div class='container alert alert-secondary mt-2 mb-0 font-weight-bold p-1'>";
-		res += "<div class='row'>";
+		res += "<div class='row mx-0'>";
 		return res;
 	}
 
@@ -178,7 +178,7 @@ public class Aplicacion {
 		res += "<div class='col-2 text-center'>";
 		res += "  <form action='alumno.jsp' method='GET'>";
 		res += "    <input type='hidden' name='op' value='crearAlumno'>";
-		res += "    <button class='btn btn-info' type='submit'>Nuevo alumno</button>";
+		res += "    <button class='btn btn-info' type='submit'><i class='fa fa-plus' aria-hidden='true'></i> Nuevo alumno</button>";
 		res += "  </form>";
 		res += "</div>";
 		res += cierreCabeceraFilas();
@@ -271,24 +271,24 @@ public class Aplicacion {
 		res += "        </select>";
 		res += "      </div>";
 		res += "    </div>";
-		res += "    <div class='container px-5'>";
-		res += "      <div class='row'>";
-		res += "        <div class='col-2'>";
+		res += "    <div class='container p-0'>";
+		res += "      <div class='row mx-0 justify-content-between'>";
+		res += "        <div class='col-3'>";
 		res += "        </div>";
-		res += "        <div class='col-8 row justify-content-center'>";
+		res += "        <div class='col-6 row justify-content-center'>";
 		// Botonera consulta
 		// Botonera alta de alumno
 		if (id == 0)
 			res += creaBotonAlumno("creadoAlumno", "Dar de alta", alumno, "info", "crear");
 		else
-			res += creaBotonAlumno("modificarAlumno", "Actualizar", alumno, "info", "actualizar"); // actualizar
+			res += creaBotonAlumno("modificarAlumno", "<i class='fa fa-pencil' aria-hidden='true'></i> Actualizar", alumno, "info", "actualizar"); // actualizar
 		if (id != 0) {
-			res += creaBotonAlumno("eliminarAlumno", "Eliminar", alumno, "danger", "eliminar");
+			res += creaBotonAlumno("eliminarAlumno", "<i class='fa fa-trash' aria-hidden='true'></i> Eliminar", alumno, "danger", "eliminar");
 		}
 		res += "        </div>";
-		res += "        <div class='col-2 text-right'>";
+		res += "        <div class='col-3 text-right'>";
 		res += "          <a href='alumnos.jsp?orden=apellidos'>";
-		res += "            <button class='btn btn-info text-right' type='button'>Cerrar</button>";
+		res += "            <button class='btn btn-info text-right' type='button'><i class='fa fa-times' aria-hidden='true'></i> Cerrar</button>";
 		res += "          </a>";
 		res += "        </div>";
 		res += "      </div>";
@@ -333,19 +333,20 @@ public class Aplicacion {
 		res += inicioCabeceraFilas();
 		res += botonCabeceraGrupos(1, "text-center", "g.id", "ID");
 		res += botonCabeceraGrupos(1, "text-center", "g.curso", "Curso");
-		res += botonCabeceraGrupos(7, "", "g.nombre", "Nombre del grupo");
+		res += botonCabeceraGrupos(5, "", "g.nombre", "Nombre del grupo");
+		res += botonCabeceraGrupos(2, "text-center", "g.nombre", "Nº Alumnos");
 		res += botonCabeceraGrupos(1, "", "g.anyo", "Año");
 		res += "<div class='col-2 text-center'>";
 		res += "  <form action='grupo.jsp' method='GET'>";
 		res += "    <input type='hidden' name='op' value='crearGrupo'>";
-		res += "    <button class='btn btn-info' type='submit'>Nuevo grupo</button>";
+		res += "    <button class='btn btn-info' type='submit'><i class='fa fa-plus' aria-hidden='true'></i> Nuevo grupo</button>";
 		res += "  </form>";
 		res += "</div>";
 		res += cierreCabeceraFilas();
 
 		ArrayList<Grupo> grupos = consultarTodosGrupos(orden);
 		for (Grupo grupo : grupos) {
-			res += grupo;
+			res += grupo.imprimeFilaGrupos(contadorAlumnos(grupo.getId()));
 		}
 		return res;
 	}
@@ -403,14 +404,14 @@ public class Aplicacion {
 		if (id == 0)
 			res += creaBotonGrupo("creadoGrupo", "Dar de alta", grupo, "info", "crear");
 		else
-			res += creaBotonGrupo("modificarGrupo", "Actualizar", grupo, "info", "actualizar"); // actualizar
+			res += creaBotonGrupo("modificarGrupo", "<i class='fa fa-pencil' aria-hidden='true'></i> Actualizar", grupo, "info", "actualizar"); // actualizar
 		if (id != 0) {
-			res += creaBotonGrupo("eliminarGrupo", "Eliminar", grupo, "danger", "eliminar");
+			res += creaBotonGrupo("eliminarGrupo", "<i class='fa fa-trash' aria-hidden='true'></i> Eliminar", grupo, "danger", "eliminar");
 		}
 		res += "      </div>";
 		res += "      <div class='col-4 text-right'>";
 		res += "        <a href='grupos.jsp?orden=nombre'>";
-		res += "          <button class='btn btn-info text-right'type='button'>Cerrar</button>";
+		res += "          <button class='btn btn-info text-right'type='button'><i class='fa fa-times' aria-hidden='true'></i> Cerrar</button>";
 		res += "        </a>";
 		res += "      </div>";
 		res += "    </div>";
@@ -443,7 +444,7 @@ public class Aplicacion {
 		res += "  <form action='matriculas.jsp' method='GET'>";
 		res += "    <div class='row'>";
 		res += "      <div class='col bg-secondary text-white rounded m-1 p-2'>";
-		res += "         <label class='mx-3' for='grupoId'>Selección del grupo</label>";
+		res += "         <label class='bg-primary rounded px-5 py-2 text-center w-100' for='grupoId'>Selección del grupo</label>";
 		res += "        <select class='form-control' name='grupoId' aria-label='Nombre de la clase' required>";
 		res += "          <option value=''>Seleccione una clase</option>";
 		for (Grupo grupo : grupos) {
@@ -453,7 +454,7 @@ public class Aplicacion {
 					+ grupo.getNombre() + "</option>";
 		}
 		res += "        </select>";
-		res += "         <button type='submit' class='btn btn-info m-3'>Mostrar grupo</button>";
+		res += "         <button type='submit' class='btn btn-info m-3'><i class='fa fa-users' aria-hidden='true'></i> Mostrar grupo</button>";
 		res += "         Número de alumnos: " + contadorAlumnos(grupoId);
 		for (Alumno alumno : alumnos) {
 			if (alumno.getGrupoId() == grupoId) {
@@ -472,7 +473,7 @@ public class Aplicacion {
 		res += "        <button class='btn btn-info btn-block' name='desmatricular' type='submit'>Desmatricular <i class='fa fa-arrow-right' aria-hidden='true'></i></button>";
 		res += "      </div>";
 		res += "      <div class='col bg-secondary text-white  rounded m-1 p-2'>";
-		res += "         <label class='mx-3' for=''>Alumnos sin grupo asignado</label>";
+		res += "         <label class='bg-primary rounded px-5 py-2 text-center w-100' for=''>Alumnos sin grupo asignado</label>";
 		for (Alumno alumno : alumnosSinGrupo) {
 			res += "        <div class='form-check ml-3'>";
 			res += "           <input class='form-check-input' type='checkbox' name = 'id' value='" + alumno.getId()
@@ -487,17 +488,6 @@ public class Aplicacion {
 		res += "</div>";
 		return res;
 	}
-
-	/*
-	 * public int modificarAlumno(Alumno alumno) throws SQLException,
-	 * ClassNotFoundException {
-	 * alumnosAbreConexion();
-	 * this.alumnoService.update((int) alumno.getId(), alumno.getNombre(),
-	 * alumno.getApellidos(), alumno.getGrupoId());
-	 * cierraConexion();
-	 * return (int) alumno.getId();
-	 * }
-	 */
 
 	public void matricular(String[] ids, int grupoId) throws ClassNotFoundException, SQLException {
 		ArrayList<Alumno> alumnos = consultarTodosAlumnos("a.apellidos");

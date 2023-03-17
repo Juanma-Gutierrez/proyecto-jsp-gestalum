@@ -36,7 +36,6 @@ import="alumnos.*" %> <%@page import="grupos.*" %> <%@page import="connection.*"
 	  if (_grupoId != null)
 		  grupoId = Integer.parseInt(_grupoId);
 	  else
-		grupoId = 1;
 		grupoId = app.primerGrupoId();
 		  ids = request.getParameterValues("id");
 		  boton = request.getParameter("matricular");
