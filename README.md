@@ -1,14 +1,14 @@
 # Gestalum 🧰
 
-Proyecto de gestión de alumnos Gestalum, realizado en Java, JSP y MySQL.
+Proyecto de gestión de alumnos Gestalum, realizado en Java, JSP y MySQL para la asignatura de Programación de 1º del Grado Superior de Desarrollo de Aplicaciones Multiplataforma: CPIFP PTA Campanillas.
 
 ## Índice
 
 1. [Visión general](#visión-general-)
 2. [Objetivos](#objetivos-)
 3. [Especificaciones](#especificaciones-)
-4. [Capturas de pantalla](#capturas-de-pantalla)
-5. [Lenguajes empleados](#lenguajes-empleados)
+4. [Capturas de pantalla](#capturas-de-pantalla-)
+5. [Lenguajes empleados](#lenguajes-empleados-)
 6. [Construido con](#construido-con-%EF%B8%8F)
 7. [Autor](#autor-%EF%B8%8F)
 
@@ -49,9 +49,9 @@ Puedes empezar por un proyecto de consola con un menú donde aparezcan como mín
 ![image](https://user-images.githubusercontent.com/101201349/232093019-3b418934-fac4-4f5c-b219-561e11c5acff.png)
 
 
-## Lenguajes empleados:
+## Lenguajes empleados ⌨
 
-<img src="https://img.shields.io/badge/-HTML5-014267?logo=html5&style=for-the-badge"> <img src="https://img.shields.io/badge/-CSS3-014267?logo=css3&style=for-the-badge"> <img src="https://img.shields.io/badge/-Java-014267?style=for-the-badge"> <img src="https://img.shields.io/badge/-JSP-014267?style=for-the-badge"> <img src="https://img.shields.io/badge/-MySQL-014267?logo=mysql&style=for-the-badge">
+<img src="https://img.shields.io/badge/-HTML5-014267?logo=html5&style=for-the-badge"> <img src="https://img.shields.io/badge/-CSS3-014267?logo=css3&style=for-the-badge"> <img src="https://img.shields.io/badge/-Java-014267?style=for-the-badge"> <img src="https://img.shields.io/badge/-JSP-014267?style=for-the-badge"> <img src="https://img.shields.io/badge/-MySQL-014267?logo=mysql&style=for-the-badge"> <img src="https://img.shields.io/badge/-Bootstrap-014267?logo=bootstrap&style=for-the-badge">
 
 ## Construido con 🛠️
 
