@@ -40,7 +40,14 @@ Puedes empezar por un proyecto de consola con un menú donde aparezcan como mín
 - Desmatricular a un alumno del grupo en el que está (poner a null su campo que indica el grupo en el que está)
 - Listar los alumnos de un grupo.
 
-## Capturas de pantalla
+## Capturas de pantalla 📷
+![image](https://user-images.githubusercontent.com/101201349/232092696-98f8aba2-688d-4110-b328-d2457315001b.png)
+![image](https://user-images.githubusercontent.com/101201349/232092770-438679cc-b2bb-4efc-8545-40634ba02eed.png)
+![image](https://user-images.githubusercontent.com/101201349/232092827-27ba0a70-423b-41ab-8bff-68c6fd729455.png)
+![image](https://user-images.githubusercontent.com/101201349/232092877-ec63b988-6162-4128-b25f-cffc5a63053a.png)
+![image](https://user-images.githubusercontent.com/101201349/232092965-bb256d75-868d-48d8-8db4-eec477cd7c3b.png)
+![image](https://user-images.githubusercontent.com/101201349/232093019-3b418934-fac4-4f5c-b219-561e11c5acff.png)
+
 
 ## Lenguajes empleados:
 
